@@ -1,36 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pioneer Bank</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pioneer Bank</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            
+    </head>
+    <body>
         
-</head>
-<body>
-    
-    <div id="login-area">
-        <h1 class="text-center">Welcome To Pioneer Bank</h1>
-        <div class="submit-area">
-            <h4>Login</h4>
-           
-            <input type="text" class="form-control" placeholder="Email">
-            <br>
-            <input type="password" class="form-control" name="" id="" placeholder="Password">
-            <br>
-            <button id="login" class="btn btn-success">Enter</button>
+        <div id="login-area">
+            <h1 class="text-center">Welcome To Pioneer Bank</h1>
+            <div class="submit-area">
+                <h4>Login</h4>
+            
+                <input type="text" class="form-control" placeholder="Email">
+                <br>
+                <input type="password" class="form-control" name="" id="" placeholder="Password">
+                <br>
+                <button id="login" class="btn btn-success">Enter</button>
 
+            </div>
         </div>
-    </div>
-    
-    <script>
-        const loginBtn = document.getElementById("login");
-        loginBtn.addEventListener("click", function () {
-            console.log("click me")
-            const loginArea = document.getElementById ("login-area");
-            loginArea.style.display ="none";
-        })
-    </script>
-</body>
-</html>
+        <div id="transaction-area">
+            <h1>Transaction-area</h1>
+            <div class="row">
+                <div class="col-md-4 ">
+                    <div class="deposit status">
+                        <h5>Deposit</h5>
+                        <h2>$ <span id="current-Deposit">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="withdrow status">
+                        <h5>Withdrow</h5>
+                        <h2>$<span id="currentwithdrow">00</span> </h2>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="balance status">
+                        <h5>Balance</h5>
+                        <h2>$<span id="currentBalance">1240</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="submit-area">
+                    <h4>Deposit</h4>
+                    <input type="text" class="form-control" id="deposit-Amount"  placeholder="$ Deposit Your Amount">
+                    <br>
+                    <button type="button" class="btn btn-success" id="add-Diposit">Deposit</button>
+                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="submit-area">
+                    <h4>Withdrow</h4>
+                    <input type="text" class="form-control" placeholder="$ Withdrow Your Amount" id="WithdrowAmount">
+                    <br>
+                    <button type="button" class="btn btn-success " id="addWithdrow">Withdrow</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            // login button handeler
+            const loginBtn = document.getElementById("login");
+            loginBtn.addEventListener("click", function () {
+                console.log("click me")
+                const loginArea = document.getElementById ("login-area");
+                loginArea.style.display ="none";
+                const transactionArea = document.getElementById("transaction-area");
+                transactionArea.style.display ="block";
+
+            })
+
+            //deposit button handeler
+                const depositBtn =document.getElementById("add-Diposit");
+                depositBtn.addEventListener("click", function () {
+                    // const depositAmount = document.getElementById("deposit-Amount").value;
+                    // const depositNumber = parseFloat(depositAmount);
+
+                    // const currentDeposit = document.getElementById("current-Deposit").innerText;
+                    // const currentDepositNumber = parseFloat(currentDeposit);
+                    // const totalDeposit = depositNumber + currentDepositNumber;
+                    
+                    const depositNumber = getInputNumber("deposit-Amount");
+
+                    // document.getElementById("current-Deposit").innerText = totalDeposit;
+
+                    
+                    updateSpanText("current-Deposit", depositNumber)
+                    updateSpanText("currentBalance", depositNumber)
+
+
+                    document.getElementById("deposit-Amount").value ="";
+
+                   
+
+                  
+                        
+                    })
+
+
+                     // withdraw
+                    const withdrawButton = document.getElementById("addWithdrow");
+                    withdrawButton.addEventListener("click", function () {
+                            const withdrawNumber = getInputNumber("WithdrowAmount")
+                           
+
+                                updateSpanText("currentwithdrow", withdrawNumber);
+                                updateSpanText("currentBalance", -1 * withdrawNumber)
+                                document.getElementById("WithdrowAmount").value = "";
+
+
+                        
+                    })
+
+                    function getInputNumber(id) {
+                        const amount = document.getElementById(id).value;
+                        const number = parseFloat(amount);
+                        return number;
+
+                    }
+                    
+
+                    
+                    
+                    function updateSpanText(id, depositNumber) {
+                        const current = document.getElementById(id).innerText;
+                        const currentNumber = parseFloat(current);
+                        const total = depositNumber + currentNumber;
+                        document.getElementById(id).innerText = total;
+                    }
+                    
+                
+                
+                
+                    
+                    
+                
+
+        </script>
+    </body>
+    </html>
